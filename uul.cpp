@@ -1,4 +1,5 @@
 #include "uul.h"
+#include <map>
 
 //-------------------------------------------------------------------------------
 //copied from stackoverflow: http://stackoverflow.com/questions/138600/initializing-a-static-stdmapint-int-in-c/1730798#1730798
@@ -14,7 +15,10 @@ public:
 };
 
 //===================================================================================================look-up table
-//(codepoint, (ucase, lcase)), UnicodeUpperLower[Pair|Map]
+// ** The difference of 32 between upper- and lower-cases is not consistently
+// ** applied for all codepoints that can be cased
+// (why not? u muffas had the chance & u fucked it up)
+//the map: (codepoint, (ucase, lcase)), UnicodeUpperLower[Pair|Map]
 typedef std::pair< unicodepoint, unicodepoint > UULP;
 typedef std::map< unicodepoint, UULP > UULM;
 UULM UUL = create_static_map< unicodepoint, UULP >
@@ -30,7 +34,8 @@ UULM UUL = create_static_map< unicodepoint, UULP >
 (0x6E, UULP(0x4E, 0)) (0x6F, UULP(0x4F, 0)) (0x70, UULP(0x50, 0)) (0x71, UULP(0x51, 0)) (0x72, UULP(0x52, 0)) (0x73, UULP(0x53, 0))
 (0x74, UULP(0x54, 0)) (0x75, UULP(0x55, 0)) (0x76, UULP(0x56, 0)) (0x77, UULP(0x57, 0)) (0x78, UULP(0x58, 0)) (0x79, UULP(0x59, 0))
 (0x7A, UULP(0x5A, 0)) //z (Z, 0)
-(0xB5, UULP(0x39C, 0)) (0xC0, UULP(0, 0xE0)) (0xC1, UULP(0, 0xE1)) (0xC2, UULP(0, 0xE2)) (0xC3, UULP(0, 0xE3)) (0xC4, UULP(0, 0xE4))
+(0xB5, UULP(0x39C, 0)) //µ (Μ, 0) lcase greek mu - same as 0x3BC - strange & weird
+(0xC0, UULP(0, 0xE0)) (0xC1, UULP(0, 0xE1)) (0xC2, UULP(0, 0xE2)) (0xC3, UULP(0, 0xE3)) (0xC4, UULP(0, 0xE4))
 (0xC5, UULP(0, 0xE5)) (0xC6, UULP(0, 0xE6)) (0xC7, UULP(0, 0xE7))  (0xC8, UULP(0, 0xE8))(0xC9, UULP(0, 0xE9)) (0xCA, UULP(0, 0xEA))
 (0xCB, UULP(0, 0xEB)) (0xCC, UULP(0, 0xEC)) (0xCD, UULP(0, 0xED)) (0xCE, UULP(0, 0xEE)) (0xCF, UULP(0, 0xEF)) (0xD0, UULP(0, 0xF0))
 (0xD1, UULP(0, 0xF1)) (0xD2, UULP(0, 0xF2)) (0xD3, UULP(0, 0xF3)) (0xD4, UULP(0, 0xF4)) (0xD5, UULP(0, 0xF5)) (0xD6, UULP(0, 0xF6))
@@ -72,7 +77,7 @@ UULM UUL = create_static_map< unicodepoint, UULP >
 (0x1B2, UULP(0, 0x28B)) (0x1B3, UULP(0, 0x1B4)) (0x1B4, UULP(0x1B3, 0)) (0x1B5, UULP(0, 0x1B6)) (0x1B6, UULP(0x1B5, 0)) (0x1B7, UULP(0, 0x292))
 (0x1B8, UULP(0, 0x1B9)) (0x1B9, UULP(0x1B8, 0)) (0x1BC, UULP(0, 0x1BD)) (0x1BD, UULP(0x1BC, 0)) (0x1BF, UULP(0x1F7, 0))
 (0x1C4, UULP(0, 0x1C6)) // **** !
-(0x1C5, UULP(0x1C4, 0x1C6)) // **** !
+(0x1C5, UULP(0x1C4, 0x1C6)) // **** ! - strange & weird
 (0x1C6, UULP(0x1C4, 0)) // **** !
 (0x1C7, UULP(0, 0x1C9)) (0x1C8, UULP(0x1C7, 0x1C9)) (0x1C9, UULP(0x1C7, 0)) (0x1CA, UULP(0, 0x1CC)) (0x1CB, UULP(0x1CA, 0x1CC))
 (0x1CC, UULP(0x1CA, 0)) (0x1CD, UULP(0, 0x1CE)) (0x1CE, UULP(0x1CD, 0)) (0x1CF, UULP(0, 0x1D0)) (0x1D0, UULP(0x1CF, 0)) (0x1D1, UULP(0, 0x1D2))
@@ -107,7 +112,8 @@ UULM UUL = create_static_map< unicodepoint, UULP >
 (0x38C, UULP(0, 0x3CC)) (0x38E, UULP(0, 0x3CD)) (0x38F, UULP(0, 0x3CE)) (0x391, UULP(0, 0x3B1)) (0x392, UULP(0, 0x3B2)) (0x393, UULP(0, 0x3B3))
 (0x394, UULP(0, 0x3B4)) (0x395, UULP(0, 0x3B5)) (0x396, UULP(0, 0x3B6)) (0x397, UULP(0, 0x3B7)) (0x398, UULP(0, 0x3B8)) (0x399, UULP(0, 0x3B9))
 (0x39A, UULP(0, 0x3BA)) (0x39B, UULP(0, 0x3BB)) (0x39C, UULP(0, 0x3BC)) (0x39D, UULP(0, 0x3BD)) (0x39E, UULP(0, 0x3BE)) (0x39F, UULP(0, 0x3BF))
-(0x3A0, UULP(0, 0x3C0)) (0x3A1, UULP(0, 0x3C1)) (0x3A3, UULP(0, 0x3C3)) (0x3A4, UULP(0, 0x3C4)) (0x3A5, UULP(0, 0x3C5)) (0x3A6, UULP(0, 0x3C6))
+(0x3A0, UULP(0, 0x3C0)) // Π (0, π) == pi
+(0x3A1, UULP(0, 0x3C1)) (0x3A3, UULP(0, 0x3C3)) (0x3A4, UULP(0, 0x3C4)) (0x3A5, UULP(0, 0x3C5)) (0x3A6, UULP(0, 0x3C6))
 (0x3A7, UULP(0, 0x3C7)) (0x3A8, UULP(0, 0x3C8)) (0x3A9, UULP(0, 0x3C9)) (0x3AA, UULP(0, 0x3CA)) (0x3AB, UULP(0, 0x3CB)) (0x3AC, UULP(0x386, 0))
 (0x3AD, UULP(0x388, 0)) (0x3AE, UULP(0x389, 0)) (0x3AF, UULP(0x38A, 0)) (0x3B1, UULP(0x391, 0)) (0x3B2, UULP(0x392, 0)) (0x3B3, UULP(0x393, 0))
 (0x3B4, UULP(0x394, 0)) (0x3B5, UULP(0x395, 0)) (0x3B6, UULP(0x396, 0)) (0x3B7, UULP(0x397, 0)) (0x3B8, UULP(0x398, 0)) (0x3B9, UULP(0x399, 0))
@@ -444,24 +450,23 @@ UULM UUL = create_static_map< unicodepoint, UULP >
 unicodepoint uucase(unicodepoint cp) { unicodepoint r=UUL[cp].first; return (!r)?cp:r; }
 unicodepoint ulcase(unicodepoint cp) { unicodepoint r=UUL[cp].second; return (!r)?cp:r; }
 
-//todo - improve this
-std::string uucase(const std::string &s)
+std::string uucase(const std::string &stext)
 {
 	std::string sr{};
 	std::string su{};
 	unicodepoint u;
 	size_t upos=0;
-	while (upos<s.size()) { su=u8charat(s, upos); u=u8toU(su); sr+=Utou8(uucase(u)); }
+	while (upos<stext.size()) { su=u8charat(stext, upos); u=u8toU(su); sr+=Utou8(uucase(u)); }
 	return sr;
 }
 
-std::string ulcase(const std::string &s)
+std::string ulcase(const std::string &stext)
 {
 	std::string sr{};
 	std::string su{};
 	unicodepoint u;
 	size_t upos=0;
-	while (upos<s.size()) { su=u8charat(s, upos); u=u8toU(su); sr+=Utou8(ulcase(u)); }
+	while (upos<stext.size()) { su=u8charat(stext, upos); u=u8toU(su); sr+=Utou8(ulcase(u)); }
 	return sr;
 }
 

@@ -4,17 +4,13 @@
 #include <string>
 #include <utilfuncs/utilfuncs.h>
 
-
-/*
-	This create & use a look-up table (std::map) in memory
-*/
-
-
 unicodepoint uucase(unicodepoint cp);
 unicodepoint ulcase(unicodepoint cp);
+//use Utou8() to convert unicodepoint to utf8-char
 
-std::string uucase(const std::string &s);
-std::string ulcase(const std::string &s);
+//text that contain utf8 chars
+std::string uucase(const std::string &stext);
+std::string ulcase(const std::string &stext);
 
 
 #endif
