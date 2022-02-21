@@ -17,7 +17,6 @@ public:
 //===================================================================================================look-up table
 // ** The difference of 32 between upper- and lower-cases is not consistently
 // ** applied for all codepoints that can be cased
-// (why not? u muffas had the chance & u fucked it up)
 //the map: (codepoint, (ucase, lcase)), UnicodeUpperLower[Pair|Map]
 typedef std::pair< unicodepoint, unicodepoint > UULP;
 typedef std::map< unicodepoint, UULP > UULM;
