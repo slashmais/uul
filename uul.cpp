@@ -6,6 +6,12 @@
 //Usage: std::map< int, int > mymap = create_static_map< int, int > (1,2) (3,4) (5,6);
 template <typename T, typename U> class create_static_map
 {
+	/*
+		todo: 2022-02-21
+		this compiles and tests OK, but a recent check of the link
+		indicated that tis class is obsolete / error-prone
+		will fix this ASAP
+	*/
 private:
     std::map<T, U> m_map;
 public:
