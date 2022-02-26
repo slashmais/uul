@@ -3,6 +3,7 @@
 
 //-------------------------------------------------------------------------------
 //copied from stackoverflow: http://stackoverflow.com/questions/138600/initializing-a-static-stdmapint-int-in-c/1730798#1730798
+//NB: previous erroneous code fixed; retained name 'create_static_map' to not impact current usages
 //Usage: std::map< int, int > mymap = create_static_map< int, int > (1,2) (3,4) (5,6);
 template <typename T, typename U> class create_static_map
 {
