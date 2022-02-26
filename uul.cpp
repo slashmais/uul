@@ -446,15 +446,28 @@ UULM UUL = create_static_map< unicodepoint, UULP >
 ; //<<--easy to omit semi-colon!
 //-----------------------------------------------------------------------------
 
-
+/*-----------------------------------------------------------
+    uucase, ulcase
+    process:
+	converts 'cp' to upper/lower case
+    returns:
+    	the convert value or original value for 'cp' if not convertible
+*/
 unicodepoint uucase(unicodepoint cp) { unicodepoint r=UUL[cp].first; return (!r)?cp:r; }
 unicodepoint ulcase(unicodepoint cp) { unicodepoint r=UUL[cp].second; return (!r)?cp:r; }
 
+/*-----------------------------------------------------------
+    uucase, ulcase
+    process:
+    	extracts each utf8char in 'stext', converts it to case and insert into return-string
+    returns:
+    	copy of 'stext' as cased string
+*/
 std::string uucase(const std::string &stext)
 {
-	std::string sr{};
-	std::string su{};
-	unicodepoint u;
+	std::string sr{}; //return cased text
+	std::string su{}; //extracted single utf8-char
+	unicodepoint u; //utility unicodepoint var
 	size_t upos=0;
 	while (upos<stext.size()) { su=u8charat(stext, upos); u=u8toU(su); sr+=Utou8(uucase(u)); }
 	return sr;
